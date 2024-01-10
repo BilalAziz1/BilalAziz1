@@ -1,0 +1,77 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <chrono>
+using namespace std;
+
+int main() {
+    vector<int> myNumbers;
+
+    
+    for (int i = 200; i > 100; --i) {
+        myNumbers.push_back(i);
+    }
+
+    auto startTimeMyBubbleSort = chrono::high_resolution_clock::now();
+
+
+    for (int i = 0; i < myNumbers.size(); ++i) {
+        for (int j = 0; j < myNumbers.size() - i - 1; ++j) {
+            if (myNumbers[j] > myNumbers[j + 1]) {
+                swap(myNumbers[j], myNumbers[j + 1]);
+            }
+        }
+    }
+
+    auto endTimeMyBubbleSort = chrono::high_resolution_clock::now();
+
+    auto durationMyBubbleSort = chrono::duration_cast<chrono::microseconds>(endTimeMyBubbleSort - startTimeMyBubbleSort);
+
+    cout << "My Bubble Sort Execution Time: " << durationMyBubbleSort.count() << " microseconds\n";
+
+    
+    cout << "First 10 integers: ";
+    for (int i = 0; i < 10; ++i) {
+        cout << myNumbers[i] << " ";
+    }
+
+    cout << "\nLast 10 integers: ";
+    for (int i = myNumbers.size() - 10; i < myNumbers.size(); ++i) {
+        cout << myNumbers[i] << " ";
+    }
+
+    cout << "\n";
+
+    myNumbers.clear();
+
+    
+    for (int i = 50000; i > 49990; --i) {
+        myNumbers.push_back(i);
+    }
+
+    auto startTimeMySTLSort = chrono::high_resolution_clock::now();
+
+    
+    sort(myNumbers.begin(), myNumbers.end());
+
+    auto endTimeMySTLSort = chrono::high_resolution_clock::now();
+
+    auto durationMySTLSort = chrono::duration_cast<chrono::microseconds>(endTimeMySTLSort - startTimeMySTLSort);
+
+    cout << "My STL Sort Execution Time: " << durationMySTLSort.count() << " microseconds\n";
+
+    
+    cout << "First 10 integers: ";
+    for (int i = 0; i < 10; ++i) {
+        cout << myNumbers[i] << " ";
+    }
+
+    cout << "\nLast 10 integers: ";
+    for (int i = myNumbers.size() - 10; i < myNumbers.size(); ++i) {
+        cout << myNumbers[i] << " ";
+    }
+
+    cout << "\n";
+
+    return 0;
+}
